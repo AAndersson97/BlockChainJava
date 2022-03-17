@@ -1,12 +1,13 @@
 import com.google.gson.GsonBuilder;
 import model.Block;
+import model.Wallet;
 
 import java.util.ArrayList;
 
 public class Chain {
 
     private final static int difficulty = 5;
-    private ArrayList<Block> blockChain = new ArrayList<>();
+    private final ArrayList<Block> blockChain = new ArrayList<>();
 
     public Chain() {
         blockChain.add(new Block("First block", "0"));
