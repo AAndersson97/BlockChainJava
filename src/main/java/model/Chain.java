@@ -1,13 +1,15 @@
-import com.google.gson.GsonBuilder;
-import model.Block;
-import model.Wallet;
+package model;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Chain {
 
-    private final static int difficulty = 5;
-    private final ArrayList<Block> blockChain = new ArrayList<>();
+    public final static int difficulty = 5;
+    public final static BigDecimal minimumTransaction = new BigDecimal("0.005");
+    public final ArrayList<Block> blockChain = new ArrayList<>();
+    public final HashMap<String, TransactionOutput> UTXOs = new HashMap<>(); // list of unspent transactions
 
     public Chain() {
         blockChain.add(new Block("First block", "0"));

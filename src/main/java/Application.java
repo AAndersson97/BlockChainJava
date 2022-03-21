@@ -1,10 +1,9 @@
+import model.Chain;
 import model.Transaction;
 import model.Wallet;
 import utility.StringUtil;
 
 import java.math.BigDecimal;
-import java.security.Provider;
-import java.security.Security;
 
 public class Application {
     private final static Wallet wallet1 = new Wallet();
