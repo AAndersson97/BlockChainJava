@@ -1,7 +1,10 @@
 package utility;
 
+import model.Transaction;
+
 import java.nio.charset.StandardCharsets;
 import java.security.*;
+import java.util.ArrayList;
 import java.util.Base64;
 
 public class StringUtil {
@@ -45,6 +48,28 @@ public class StringUtil {
         } catch(Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public static String getMerkleRoot(ArrayList<Transaction> transactions) {
+        int count = transactions.size();
+        String[] previousTreeLayer = new String[transactions.size()];
+        for(int i = 0; i < transactions.size(); i++) {
+            previousTreeLayer[i] = (transactions.get(i).getTransactionId());
+        }
+        String[] treeLayer = previousTreeLayer;
+        while(count > 1) {
+            treeLayer = new String[previousTreeLayer.length];
+            for(int i=1; i < previousTreeLayer.length; i++) {
+                treeLayer[i] = (applySha256(previousTreeLayer[i-1] + previousTreeLayer[i]));
+            }
+            count = treeLayer.length;
+            previousTreeLayer = treeLayer;
+        }
+        return (treeLayer.length == 1) ? treeLayer[0] : "";
+    }
+
+    public static String getDifficultyString(int difficulty) {
+        return new String(new char[difficulty]).replace('\0', '0');
     }
 
     public static String getStringFromKey(Key key) {

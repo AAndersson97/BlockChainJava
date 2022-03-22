@@ -12,11 +12,11 @@ public class Chain {
     public final HashMap<String, TransactionOutput> UTXOs = new HashMap<>(); // list of unspent transactions
 
     public Chain() {
-        blockChain.add(new Block("First block", "0"));
+        blockChain.add(new Block("0"));
     }
 
     public void addData(String data) {
-        Block block = new Block(data, blockChain.get(blockChain.size() - 1).previousHash);
+        Block block = new Block(blockChain.get(blockChain.size() - 1).previousHash);
         block.mineBlock(difficulty);
         blockChain.add(block);
     }

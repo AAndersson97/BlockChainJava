@@ -11,9 +11,9 @@ import static utility.StringUtil.getStringFromKeys;
 public class Transaction {
 
     private String transactionId;
-    private final PublicKey sender;
-    private final PublicKey recipient;
-    private final BigDecimal amount;
+    public final PublicKey sender;
+    public final PublicKey recipient;
+    public final BigDecimal amount;
     private byte[] signature;
 
     private final TransactionInput[] inputs;
@@ -26,6 +26,10 @@ public class Transaction {
         this.recipient = recipient;
         this.amount = amount;
         this.inputs = inputs;
+    }
+
+    public String getTransactionId() {
+        return transactionId;
     }
 
     private String calculateHash() {
@@ -44,7 +48,7 @@ public class Transaction {
             input.setUTXO(chain.UTXOs.get(input.transactionOutputId));
         }
         BigDecimal inputValue = getInputsValue();
-        if (inputValue.compareTo(chain.minimumTransaction) < 0) {
+        if (inputValue.compareTo(Chain.minimumTransaction) < 0) {
             return false;
         }
         BigDecimal amountLeft = inputValue.subtract(amount);
